@@ -1,7 +1,7 @@
 // import { API_URL } from "../../../(home)/page"
 
 import { Suspense } from "react";
-import MovieInfo from "../../../../components/movie-info";
+import MovieInfo, { getMovie } from "../../../../components/movie-info";
 import MovieVideos from "../../../../components/movie-videos";
 
 // async function getMovie(id:string){
@@ -17,6 +17,17 @@ import MovieVideos from "../../../../components/movie-videos";
 //     const response = await fetch(`${API_URL}/${id}/videos`);
 //     return response.json();
 // }
+
+interface IParams {
+    params : {id:string};
+}
+
+export async function generateMetadata({params:{id}}:IParams){
+    const movie = await getMovie(id)
+    return{
+        title:movie.title
+    }
+}
 
 export default async function MovieDetail({params:{id}}:{params:{id:string}}){
     // const movie = await getMovie(id);
